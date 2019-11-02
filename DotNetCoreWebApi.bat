@@ -37,7 +37,7 @@ set codegenerationversion=3.0.0
 
 set texttransformexe=%batdir%Utility\T4CmdLineHost\TextTransform.exe
 set csprojupdateexe=%batdir%Utility\CsProjUpdate\CsProjUpdate.exe
-set t4templatepath=%batdir%Utility\T4Templates
+set t4templatepath=%batdir%Utility\T4Templates\DotNetCoreWebApi
 
 %= Create a directory with the project's name =%
 md %projectname%
