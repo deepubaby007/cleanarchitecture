@@ -1,0 +1,14 @@
+<#@ template language="C#" hostspecific="true" #>
+<# string paramNameSpace = this.Host.ResolveParameterValue("", "", "nameSpace");#>
+
+namespace <# this.Write(paramNameSpace); this.Write("\n"); #>
+{
+    public class Constants
+    {
+		//Follow same pattern to create other constants
+        public struct SampleStruct
+        {
+            public const string SampleString = "SampleValue";
+        }
+    }
+}

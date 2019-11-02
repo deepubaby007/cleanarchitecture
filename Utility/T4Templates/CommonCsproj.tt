@@ -1,0 +1,10 @@
+<#@ template language="C#" hostspecific="true" #>
+<# string paramTargetFramework = this.Host.ResolveParameterValue("", "", "targetFramework");#>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework><# this.Write(paramTargetFramework); #></TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="References\" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,41 @@
+using System;
+using System.Collections.Generic;
+<#@ template language="C#" hostspecific="true" #>
+<# string paramNameSpace = this.Host.ResolveParameterValue("", "", "nameSpace");#>
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+
+namespace <# this.Write(paramNameSpace); this.Write("\n"); #>
+{
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
+    [ApiController]
+    public class ExampleV1Controller : ControllerBase
+    {
+        [HttpGet]
+        public string ExampleGet()
+        {
+            return "From test controller V1 exampleGet method";
+        }
+
+        [HttpPut]
+        public string ExamplePut()
+        {
+            return "From test controller V1 examplePut method";
+        }
+
+        [HttpPost]
+        public string ExamplePost()
+        {
+            return "From test controller V1 examplePost method";
+        }
+
+        [HttpDelete]
+        public string ExampleDelete()
+        {
+            return "From test controller V1 exampleDelete method";
+        }
+    }
+}

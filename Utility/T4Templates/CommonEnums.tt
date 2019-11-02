@@ -1,0 +1,20 @@
+<#@ template language="C#" hostspecific="true" #>
+<# string paramNameSpace = this.Host.ResolveParameterValue("", "", "nameSpace");#>
+using System.ComponentModel;
+
+namespace <# this.Write(paramNameSpace); this.Write("\n"); #>
+{
+    public class Enums
+    {
+		// Follow same pattern to create other constants
+		public struct SampleStruct
+		{
+			public enum SampleEnum
+			{
+				[Description("One")]
+				ONE = 1,
+				TWO = 2
+			}
+		}
+    }
+}

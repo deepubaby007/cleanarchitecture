@@ -1,0 +1,9 @@
+<#@ template language="C#" hostspecific="true" #>
+<# string paramNameSpace = this.Host.ResolveParameterValue("", "", "nameSpace");#>
+namespace <# this.Write(paramNameSpace); this.Write("\n"); #>
+{
+    public class Utility
+    {
+		
+    }
+}
