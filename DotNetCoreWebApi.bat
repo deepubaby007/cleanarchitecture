@@ -31,6 +31,12 @@ set mvcversioningapiexplorerversion=4.0.0-preview8.19405.7
 set codegeneration=Microsoft.VisualStudio.Web.CodeGeneration.Design
 set codegenerationversion=3.0.0
 
+set mediatr=MediatR
+set mediatrversion=7.0.0
+
+set mediatrdependencyinjection=MediatR.Extensions.Microsoft.DependencyInjection
+set mediatrdependencyinjectionversion=7.0.0
+
 %= ----------Nuget packages---------- =%
 
 %= --------------------------------------------------Process starts-------------------------------------------------- =%
@@ -89,6 +95,7 @@ cd Core
 dotnet new classlib -o %projectname%.Domain -f %targetframework%
 dotnet add %projectname%.Domain package %newtonsoft% --version %newtonsoftversion%
 dotnet new classlib -o %projectname%.UseCases -f %targetframework%
+dotnet add %projectname%.UseCases package %mediatr% --version %mediatrversion%
 %= Create the class libraries in ***Core folder*** =%
 
 %= Come out of the Core directory =%
@@ -122,6 +129,8 @@ dotnet add %projectname%.%presentationlayerprojectname% package %swashbuckle% --
 dotnet add %projectname%.%presentationlayerprojectname% package %mvcversioning% --version %mvcversioningversion%
 dotnet add %projectname%.%presentationlayerprojectname% package %mvcversioningapiexplorer% --version %mvcversioningapiexplorerversion%
 dotnet add %projectname%.%presentationlayerprojectname% package %codegeneration% --version %codegenerationversion%
+dotnet add %projectname%.%presentationlayerprojectname% package %mediatr% --version %mediatrversion%
+dotnet add %projectname%.%presentationlayerprojectname% package %mediatrdependencyinjection% --version %mediatrdependencyinjectionversion%
 
 cd %projectname%.%presentationlayerprojectname%
 dotnet tool install -g dotnet-aspnet-codegenerator
