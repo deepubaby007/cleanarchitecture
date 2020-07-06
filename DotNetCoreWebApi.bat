@@ -12,7 +12,7 @@ set /p enteredprojectname="Please enter project name:"
 set projectname=%enteredprojectname%
 set dotnetclipresentationlayerprojectname=webapi
 set presentationlayerprojectname=WebApi
-set targetframework=netcoreapp3.0
+set targetframework=netcoreapp3.1
 %= ----------Project configuration---------- =%
 
 %= ----------Nuget packages---------- =%
@@ -94,8 +94,8 @@ cd Core
 %= Create the class libraries in ***Core folder*** =%
 dotnet new classlib -o %projectname%.Domain -f %targetframework%
 dotnet add %projectname%.Domain package %newtonsoft% --version %newtonsoftversion%
-dotnet new classlib -o %projectname%.UseCases -f %targetframework%
-dotnet add %projectname%.UseCases package %mediatr% --version %mediatrversion%
+dotnet new classlib -o %projectname%.Application -f %targetframework%
+dotnet add %projectname%.Application package %mediatr% --version %mediatrversion%
 %= Create the class libraries in ***Core folder*** =%
 
 %= Come out of the Core directory =%
@@ -108,10 +108,10 @@ md Infrastructure
 cd Infrastructure
 
 %= Create the class libraries in ***Infrastructure folder*** =%
-dotnet new classlib -o %projectname%.Data -f %targetframework%
-dotnet add %projectname%.Data package %newtonsoft% --version %newtonsoftversion%
-dotnet new classlib -o %projectname%.Service -f %targetframework%
-dotnet add %projectname%.Service package %newtonsoft% --version %newtonsoftversion%
+dotnet new classlib -o %projectname%.Persistence -f %targetframework%
+dotnet add %projectname%.Persistence package %newtonsoft% --version %newtonsoftversion%
+dotnet new classlib -o %projectname%.Infrastructure -f %targetframework%
+dotnet add %projectname%.Infrastructure package %newtonsoft% --version %newtonsoftversion%
 %= Create the class libraries in ***Infrastructure folder*** =%
 
 %= Come out of the Infrastructure directory =%
@@ -162,22 +162,22 @@ cd..
 cd..
 
 %= Add projects to solution =%
-dotnet sln %projectname%.sln add .\Src\Presentation\%projectname%.%presentationlayerprojectname%\%projectname%.%presentationlayerprojectname%.csproj .\Src\Common\%projectname%.Common\%projectname%.Common.csproj  .\Src\Core\%projectname%.Domain\%projectname%.Domain.csproj .\Src\Core\%projectname%.UseCases\%projectname%.UseCases.csproj .\Src\Infrastructure\%projectname%.Data\%projectname%.Data.csproj .\Src\Infrastructure\%projectname%.Service\%projectname%.Service.csproj
+dotnet sln %projectname%.sln add .\Src\Presentation\%projectname%.%presentationlayerprojectname%\%projectname%.%presentationlayerprojectname%.csproj .\Src\Common\%projectname%.Common\%projectname%.Common.csproj  .\Src\Core\%projectname%.Domain\%projectname%.Domain.csproj .\Src\Core\%projectname%.Application\%projectname%.Application.csproj .\Src\Infrastructure\%projectname%.Persistence\%projectname%.Persistence.csproj .\Src\Infrastructure\%projectname%.Infrastructure\%projectname%.Infrastructure.csproj
 %= Add projects to solution =%
 
 %= Add references to projects =%
 %= Core =%
 dotnet add .\Src\Core\%projectname%.Domain\%projectname%.Domain.csproj reference .\Src\Common\%projectname%.Common\%projectname%.Common.csproj
-dotnet add .\Src\Core\%projectname%.UseCases\%projectname%.UseCases.csproj reference .\Src\Core\%projectname%.Domain\%projectname%.Domain.csproj
+dotnet add .\Src\Core\%projectname%.Application\%projectname%.Application.csproj reference .\Src\Core\%projectname%.Domain\%projectname%.Domain.csproj
 
 %= Infrastructure =%
-dotnet add .\Src\Infrastructure\%projectname%.Data\%projectname%.Data.csproj reference .\Src\Core\%projectname%.Domain\%projectname%.Domain.csproj
-dotnet add .\Src\Infrastructure\%projectname%.Service\%projectname%.Service.csproj reference .\Src\Core\%projectname%.Domain\%projectname%.Domain.csproj
+dotnet add .\Src\Infrastructure\%projectname%.Persistence\%projectname%.Persistence.csproj reference .\Src\Core\%projectname%.Domain\%projectname%.Domain.csproj
+dotnet add .\Src\Infrastructure\%projectname%.Infrastructure\%projectname%.Infrastructure.csproj reference .\Src\Core\%projectname%.Domain\%projectname%.Domain.csproj
 
 %= Presentation =%
 dotnet add .\Src\Presentation\%projectname%.%presentationlayerprojectname%\%projectname%.%presentationlayerprojectname%.csproj reference .\Src\Core\%projectname%.Domain\%projectname%.Domain.csproj
-dotnet add .\Src\Presentation\%projectname%.%presentationlayerprojectname%\%projectname%.%presentationlayerprojectname%.csproj reference .\Src\Core\%projectname%.UseCases\%projectname%.UseCases.csproj
-dotnet add .\Src\Presentation\%projectname%.%presentationlayerprojectname%\%projectname%.%presentationlayerprojectname%.csproj reference .\Src\Infrastructure\%projectname%.Service\%projectname%.Service.csproj
+dotnet add .\Src\Presentation\%projectname%.%presentationlayerprojectname%\%projectname%.%presentationlayerprojectname%.csproj reference .\Src\Core\%projectname%.Application\%projectname%.Application.csproj
+dotnet add .\Src\Presentation\%projectname%.%presentationlayerprojectname%\%projectname%.%presentationlayerprojectname%.csproj reference .\Src\Infrastructure\%projectname%.Infrastructure\%projectname%.Infrastructure.csproj
 %= Add references to projects =%
 
 %= Create the Test directory =%
@@ -187,22 +187,22 @@ md Test
 cd Test
 
 %= Create unit test in ***Test folder*** =%
-dotnet new xunit -o %projectname%.UseCases.Test -f %targetframework%
-dotnet new xunit -o %projectname%.Data.Test -f %targetframework%
-dotnet new xunit -o %projectname%.Service.Test -f %targetframework%
+dotnet new xunit -o %projectname%.Application.Test -f %targetframework%
+dotnet new xunit -o %projectname%.Persistence.Test -f %targetframework%
+dotnet new xunit -o %projectname%.Infrastructure.Test -f %targetframework%
 %= Create unit test in ***Test folder*** =%
 
 %= Come out of the Test directory =%
 cd..
 
 %= Add unit test projects to solution =%
-dotnet sln %projectname%.sln add .\Test\%projectname%.UseCases.Test\%projectname%.UseCases.Test.csproj  .\Test\%projectname%.Data.Test\%projectname%.Data.Test.csproj .\Test\%projectname%.Service.Test\%projectname%.Service.Test.csproj
+dotnet sln %projectname%.sln add .\Test\%projectname%.Application.Test\%projectname%.Application.Test.csproj  .\Test\%projectname%.Persistence.Test\%projectname%.Persistence.Test.csproj .\Test\%projectname%.Infrastructure.Test\%projectname%.Infrastructure.Test.csproj
 %= Add unit test projects to solution =%
 
 %= Add references =%
-dotnet add .\Test\%projectname%.Data.Test\%projectname%.Data.Test.csproj reference .\Src\Infrastructure\%projectname%.Data\%projectname%.Data.csproj
-dotnet add .\Test\%projectname%.Service.Test\%projectname%.Service.Test.csproj reference .\Src\Infrastructure\%projectname%.Service\%projectname%.Service.csproj
-dotnet add .\Test\%projectname%.UseCases.Test\%projectname%.UseCases.Test.csproj reference .\Src\Core\%projectname%.UseCases\%projectname%.UseCases.csproj
+dotnet add .\Test\%projectname%.Persistence.Test\%projectname%.Persistence.Test.csproj reference .\Src\Infrastructure\%projectname%.Persistence\%projectname%.Persistence.csproj
+dotnet add .\Test\%projectname%.Infrastructure.Test\%projectname%.Infrastructure.Test.csproj reference .\Src\Infrastructure\%projectname%.Infrastructure\%projectname%.Infrastructure.csproj
+dotnet add .\Test\%projectname%.Application.Test\%projectname%.Application.Test.csproj reference .\Src\Core\%projectname%.Application\%projectname%.Application.csproj
 %= Add references =%
 pause
 
