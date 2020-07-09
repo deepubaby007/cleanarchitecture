@@ -1,0 +1,24 @@
+<#@ template language="C#" hostspecific="true" #>
+<# string paramNameSpace = this.Host.ResolveParameterValue("", "", "nameSpace");#>
+using MediatR;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using <# this.Write(paramNameSpace.Split('.')[0]); this.Write(".Domain;"); this.Write("\n"); #>
+
+namespace <# this.Write(paramNameSpace); this.Write("\n"); #>
+{
+    public class ExampleRequestQueryHandler : IRequestHandler<ExampleRequestQuery, ResponseMessage<string>>
+    {
+        public async Task<ResponseMessage<string>> Handle(ExampleRequestQuery request, CancellationToken cancellationToken)
+        {
+            return new ResponseMessage<string>()
+            {
+                ResponseCode = Common.Enums.ResponseCodes.Success,
+                ResponseData = "Hello from API"
+            };
+        }
+    }
+}

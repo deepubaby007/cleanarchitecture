@@ -1,0 +1,13 @@
+<#@ template language="C#" hostspecific="true" #>
+<# string paramNameSpace = this.Host.ResolveParameterValue("", "", "nameSpace");#>
+using MediatR;
+using System;
+using <# this.Write(paramNameSpace.Split('.')[0]); this.Write(".Domain;"); this.Write("\n"); #>
+
+namespace <# this.Write(paramNameSpace); this.Write("\n"); #>
+{
+    public class ExampleRequestQuery : IRequest<ResponseMessage<string>>
+    {
+
+    }
+}

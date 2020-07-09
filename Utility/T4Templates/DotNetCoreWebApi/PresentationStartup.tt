@@ -13,6 +13,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using MediatR;
+//using <# this.Write(paramNameSpace.Split('.')[0]); this.Write(".Application;"); this.Write("\n"); #>
+//using <# this.Write(paramNameSpace.Split('.')[0]); this.Write(".Domain;"); this.Write("\n"); #>
 
 namespace <# this.Write(paramNameSpace); this.Write("\n"); #>
 {
@@ -36,6 +39,8 @@ namespace <# this.Write(paramNameSpace); this.Write("\n"); #>
             });
 			
             services.AddControllers();
+	        services.AddMediatR(typeof(Startup).Assembly);
+	        //services.AddScoped<IRequestHandler<ExampleRequestQuery, ResponseMessage<string>>, ExampleRequestQueryHandler>();
 			
             services.AddSwaggerGen(swaggergen =>
             {

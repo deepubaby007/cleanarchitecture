@@ -16,5 +16,18 @@ namespace <# this.Write(paramNameSpace); this.Write("\n"); #>
 				TWO = 2
 			}
 		}
+
+		public enum ResponseCodes
+		{
+			Success = 0,
+			Error = 1,
+		}
+
+        	public enum ErrorNumber
+        	{
+            		Exception = 1,
+
+            		Success = 0
+        	}
     }
 }

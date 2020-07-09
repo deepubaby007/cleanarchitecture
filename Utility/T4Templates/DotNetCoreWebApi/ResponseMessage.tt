@@ -1,0 +1,17 @@
+<#@ template language="C#" hostspecific="true" #>
+<# string paramNameSpace = this.Host.ResolveParameterValue("", "", "nameSpace");#>
+using System;
+using System.Collections.Generic;
+using <# this.Write(paramNameSpace.Split('.')[0]); this.Write(".Common;"); this.Write("\n"); #>
+
+namespace <# this.Write(paramNameSpace); this.Write("\n"); #>
+{
+    public class ResponseMessage<T>
+    {
+        public Enums.ResponseCodes ResponseCode { get; set; } = Enums.ResponseCodes.Error;
+
+        public IList<ValidationError> ValidationErrors { get; set; }
+
+        public T ResponseData { get; set; }
+    }
+}
