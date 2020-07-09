@@ -94,8 +94,26 @@ cd Core
 %= Create the class libraries in ***Core folder*** =%
 dotnet new classlib -o %projectname%.Domain -f %targetframework%
 dotnet add %projectname%.Domain package %newtonsoft% --version %newtonsoftversion%
+
+cd %projectname%.Domain
+del Class1.cs
+
+%texttransformexe% -a=nameSpace!%projectname%.Domain -o ExampleRequest.cs %t4templatepath%\ExampleRequest.tt
+%texttransformexe% -a=nameSpace!%projectname%.Domain -o ResponseMessage.cs %t4templatepath%\ResponseMessage.tt
+%texttransformexe% -a=nameSpace!%projectname%.Domain -o ValidationError.cs %t4templatepath%\ValidationError.tt
+
+cd..
+
 dotnet new classlib -o %projectname%.Application -f %targetframework%
 dotnet add %projectname%.Application package %mediatr% --version %mediatrversion%
+
+cd %projectname%.Application
+del Class1.cs
+
+%texttransformexe% -a=nameSpace!%projectname%.Application -o ExampleRequestQuery.cs %t4templatepath%\ExampleRequestQuery.tt
+%texttransformexe% -a=nameSpace!%projectname%.Application -o ExampleRequestQueryHandler.cs %t4templatepath%\ExampleRequestQueryHandler.tt
+
+cd..
 %= Create the class libraries in ***Core folder*** =%
 
 %= Come out of the Core directory =%
